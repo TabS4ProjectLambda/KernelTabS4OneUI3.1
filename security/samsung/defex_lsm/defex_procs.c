@@ -255,9 +255,7 @@ out:
 
 /* Cred. violation feature decision function */
 #define AID_MEDIA_RW	1023
-#define AID_MEDIA_OBB	1059
-#define AID_SYSTEM	1000
-
+#define SECUREFD_MEDIA_RW	0xE4E5BF
 static int task_defex_check_creds(struct defex_context *dc)
 {
 	char *path = NULL;
@@ -345,9 +343,8 @@ static int task_defex_check_creds(struct defex_context *dc)
 	 			(cur_egid != ref_egid) ||
 	  			!((cur_fsuid == ref_fsuid) ||
 	  			 (cur_fsuid == ref_uid) ||
-	  			 (cur_fsuid%100000 == AID_SYSTEM) ||
-	  			 (cur_fsuid%100000 == AID_MEDIA_RW) ||
-	  			 (cur_fsuid%100000 == AID_MEDIA_OBB)) ) {
+	  			 (cur_fsuid == AID_MEDIA_RW) ||
+	  			 (cur_fsuid == SECUREFD_MEDIA_RW)) ) {
 			check_deeper = 1;
 			if (CHECK_ROOT_CREDS(p))
 				set_task_creds(REF_PID(p), 1, 1, 1, cred_flags);

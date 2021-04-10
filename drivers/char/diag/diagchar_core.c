@@ -969,7 +969,7 @@ drop:
 					     POOL_TYPE_DCI);
 				buf_entry->data = NULL;
 				mutex_unlock(&buf_entry->data_mutex);
-				kfree(buf_entry);
+				vfree(buf_entry);
 				continue;
 			}
 
